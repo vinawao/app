@@ -1,0 +1,435 @@
+html { max-width: 800px; 
+  scroll-padding-top: var(--sticky-height); margin: 0; padding: 0; overflow-y: auto; 
+ scroll-behavior: smooth; overscroll-behavior: none; /* hilangkan bounce/elastic effect */
+-webkit-overflow-scrolling: touch; /* smooth di iOS lama */
+}
+
+body{margin:0; padding: 0; background:#000; color:#fff; font-family:Arial; max-width: 800px; 
+display: grid;
+grid-template-rows: auto 1fr;
+height: 100dvh; height: 100vh; 
+overflow-y: auto; 
+ } 
+
+h3{margin:6px;font-size:14px } 
+
+#densPlayer {
+  position: sticky;
+  top: 0;          /* Jarak dari atas viewport */
+  z-index: 5555;   /* Supaya tetap di atas elemen lain */
+  background: #000; /* Tambahkan background agar tidak transparan */ 
+  max-width:100vw; width: 100%; height: 100%; 
+  aspect-ratio:16/9;
+  margin:auto;
+}
+
+
+
+header {
+position: sticky; top: 0; height: auto; 
+}
+
+
+
+#epgInfo {
+  position: sticky;
+  top: 10;               /* atau sesuai kebutuhan */
+  z-index: 50;          /* lebih rendah dari header kalau ada */
+  background: #000;     /* supaya jelas kalau menutupi */
+}
+
+
+
+
+/* ===== PLAYER ===== */
+[data-shaka-player-container]{
+  max-width:100vw; 
+  aspect-ratio:16/9;
+  margin:auto;
+} 
+
+
+video { width: 100%;  } 
+
+@media (max-width: 768px) {
+  .video-container {
+    width: 100%;
+    height: auto;
+  }
+}
+
+
+.shaka-controls-container {
+transition: opacity .5s ease;
+}
+
+.shaka-controls-container.hide {
+opacity:0;
+pointer-events:none;
+} 
+
+
+
+/* ===== GROUP BAR ===== */
+
+#groupBar {
+  display: flex; flex-direction: row; 
+  justify-content: center; /* horizontal center */
+  align-items: center;     /* vertical center jika ada tinggi tertentu */
+  height: 35px;            /* contoh tinggi div */
+  background-color: #000; /* opsional, hanya untuk terlihat */ 
+color: gold; font-size: 14px; 
+}
+
+.group-select {
+  padding: 4px 7px; margin-left: 5px; 
+  font-size: 14px; width: 55%; background: #eee; font-weight: bold; 
+}
+
+
+
+/* 📺 📺 📺 CH NAME LIVE */ 
+
+
+#chLive { margin: 0; padding: 2px 4px; text-align: center; font-size: 15px; background: #222; }
+
+
+/* EPG INFO */ 
+
+
+.epg-info {
+  background: #555;
+  padding: 6px; margin-bottom: 0; 
+  font-size: 12px;
+  border-top: 1px solid silver; border-bottom: 1.5px solid gold; 
+}
+
+.epg-now {
+  color: gold; background: #555; 
+  font-weight: bold; padding: 2px 4px; 
+}
+
+.epg-now span {
+  color: #aaa; 
+  font-weight: normal;
+}
+
+.epg-next {
+  color: silver; background: #555; 
+  margin-top: 5px; padding: 2px 4px; 
+}
+
+.epg-next span {
+  color: #aaa;
+} 
+
+
+
+
+
+/* ===== GRID 🟧🟧🟧🟧 ===== */
+
+
+#playlistGrid { 
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); max-width: 800px; 
+  gap: 8px; margin: 65px 0 10px 0; position: relative; 
+  padding: 8px; overflow-y: scroll; }  
+
+
+
+@media (max-width: 700px) { 
+    #playlistGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 8px; margin: 65px 0 10px 0; position: relative; 
+  padding: 8px; }  
+    } 
+
+
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+main { margin: 65px 0 60px 0; position: relative; 
+grid-template-columns: 1fr; overflow-y: scroll; background: #333; 
+}
+
+
+main { margin: 65px 0 60px 0; position: relative; 
+grid-template-columns: 1fr; max-width: 800px; overflow-y: scroll; background: #333; } 
+
+
+
+
+.ANU { margin-top: /* -50px !important; */ } /*⛔⛔*/
+
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+.contEntot {
+grid-template-columns: 1fr; /* hanya konten */
+}
+
+
+
+.channel{
+  background:#111; font-size: 12px; color: silver; 
+  border-radius:8px; border: 1px solid gold; 
+  padding:6px;
+  text-align:center; align-items: center; 
+  cursor:pointer;
+  transition: all 0.2s; min-height: 75px; 
+} 
+
+.channel.active {background:#1c1c1c; transform: scale(1.03); border: 2px solid red; }
+
+.channel img{
+  width:105px; max-height: 54px !important; 
+  aspect-ratio:16/9;
+  object-fit: scale-down; margin-bottom: 3px; 
+  border-radius:6px; 
+  background:#555;
+} 
+
+.channel-name{
+  font-size:11px;
+  display:block;
+  margin-top:4px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  color:#ddd; word-wrap: break-word; overflow-wrap: break-word; 
+}
+
+
+
+
+.channel span {
+  font-size: 11px;
+  display: block;
+  margin-top: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #ddd;
+  padding: 0 4px;
+  line-height: 1.3;
+}
+
+/* Tambahkan ini di <style> agar nama channel lebih terlihat */
+/*.channel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 99%;
+  box-sizing: border-box;
+}*/
+
+.channel img {
+  flex: 1;
+  min-height: 0;  
+}
+
+
+/* Initial state Logo Rotate */
+/*img.rotate {
+  transition: transform 0.1s ease; /* bikin animasi halus */
+}*/
+
+/*img.rotate:active {
+  transform: rotate(180deg); /* sudut rotasi sesuai kebutuhan */
+}*/
+
+
+
+
+.rotate { overflow: visible; }
+img.rotate { border: 1px solid lime; 
+  transition: transform 0.1s ease-in-out;
+}
+img.rotate:active {
+  transform: translateY(-44px); /* Y Geser ke atas bawah X geser kiri kanan */
+}
+
+
+
+.blink {
+    /* Define the animation properties */
+    animation-name: blinkingText;
+    animation-duration: 1.8s; /* Control the speed */
+    animation-iteration-count: infinite; /* Make it blink forever */
+    animation-fill-mode: both;
+}
+
+/* Define the keyframes for the animation */
+@keyframes blinkingText {
+    0% {
+        opacity: 0; /* Text is transparent at the start */
+    }
+    50% {
+        opacity: 1; /* Text is fully visible at 50% through the duration */
+    }
+    100% {
+        opacity: 0; /* Text is transparent again at the end */
+    }
+}
+
+
+/* ===== BOX LOGO TV ===== */
+
+.box {
+      width: 200px; margin: 0; 
+      height: 150px;
+      border: 1px solid #000;
+      display: flex;
+      justify-content: center; / horizontal center /
+      align-items: center;     / vertical center /
+    }
+
+    .box img {
+      width: 150px;  / bisa diubah sesuai kebutuhan /
+      height: 120px;  / bisa diubah sesuai kebutuhan /
+    }
+  
+  
+
+
+
+/* ===== 🔴🔴 SHAKA ERROR MESSAGE ===== */
+
+
+#densTV {
+  position: fixed;   /* player tetap di bagian atas */
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #000;  /* latar belakang player */
+  z-index: 0;
+}
+
+
+
+#msg {} 
+
+.message { /*visibility: hidden; display: none;*/ position: absolute; top: 60px;
+left: 50%; z-index: 9999; 
+transform: translate(-50%, -50%);
+  word-wrap: break-word; overflow-wrap: break-word; 
+  /* Pengaturan Awal */
+  opacity: 1; text-align: center;
+  padding: 5px; width: 80%; height: auto; 
+  background-color: rgba(244, 67, 54, 0.9); /* merah transparan */ /* #57FEFF*/;
+  color: gold; border: 2px solid maroon; 
+  border-radius: 25px;   font-size: 13px; 
+  
+  /* Animasi: nama_animasi durasi delay jenis_kurva fill-mode */
+  animation: fadeOut 3s 3s forwards;
+  /* (Opsional) Tambahkan delay jika ingin pesan diam dulu 3 detik baru fade 4 detik */
+  /* animation: fadeOut 3s 4s forwards; */
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    /* visibility: hidden; /* Tambahkan ini agar tidak bisa diklik saat transparan */
+    display: none; /* Opsional: Benar-benar menghilangkan elemen dari layout */
+  }
+}
+
+
+
+
+/* BUTTON EPG FLOAT MENU */
+
+.floating-menu {
+    position: fixed;
+    bottom: 26px; /* Jarak dari bawah layar */
+    left: 73.5%;
+    transform: translateX(-2%); /* makin kecil mines makin ke kanan */
+    z-index: 999; /* Memastikan tombol di atas konten lain */
+    
+    /* Styling tampilan */
+    background-color: lime; border: 1px solid gold; 
+    padding: 2px 5px;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    display: flex;
+    gap: 6px; opacity: 0.9;  
+}
+
+
+.EPG { font-weight: bold; opacity: 1; border-radius: 8px; padding: 1px 3px;  } 
+
+
+.relative { position: relative; width: 100%;       
+  background: transparent; } 
+
+
+/* ==== FOOTER ==== */ 
+
+#footer {
+  position: fixed; border-top: 1px solid silver; 
+  bottom: 0;
+  left: 0;
+  width: 100%;       /* agar melebar penuh */
+  background: #222;  /* warna latar */
+  text-align: left; color: gold; 
+  padding: 9px 9px 9px 12px;  font-size: 14.5px; 
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.1); /* efek bayangan */
+} 
+
+
+footer { position: relative; }
+
+.myfooter { width: 100%; 
+  position: fixed;
+  bottom: 0; left: 0; z-index: 99; 
+  background: #111; margin: 0 0 2px; font-size: 13px; border-top: 1px solid gold; 
+  padding: 3px 15px; gap: 2; 
+}
+
+
+.brand { color: orange; } 
+
+strong { font-size: 14px; } 
+
+small { font-size: 11px; } 
+
+
+
+.clock { font-size: 12px; color: silver; } 
+
+
+
+ul, ol { margin: 2px 4px 2px -18px; font-size: 15px; } 
+
+li { padding-top: 4px; }
+
+
+/* ===== SHAKA CONTROLS FADE OUT ===== */
+
+/* Target the controls container */
+.shaka-controls-container {
+  /* Override the default transition time for opacity changes */
+  transition: opacity 5s ease-in-out !important;
+}
+
+/* Ensure the hidden state (opacity: 0) also respects the transition */
+.shaka-controls-container.shaka-controls-hidden {
+  opacity: 0 !important;
+  /* Add pointer-events: none; to prevent the hidden controls from
+     interfering with mouse events on the video element if needed */
+  pointer-events: none;
+}
+
+
+/* ==== SHAKA SEEKBAR ==== */ 
+
+.shaka-seek-bar-container {
+    display: none !important;
+}
+
+
+
